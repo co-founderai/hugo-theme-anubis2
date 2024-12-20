@@ -8,7 +8,7 @@
                     .post-icon-{{ $random }}::before {
                         display: inline-block;
                         content: '';
-                        background: url("/{{ $iconPath }}");
+                        background-image: url("/{{ $iconPath }}");
                         width: 1.2em;
                         height: 1.2em;
                         background-size: auto 100%;
@@ -23,6 +23,17 @@
         {{ partial "post-language-switcher.html" . }}
     </div>
 
+    <!-- Dynamic Preview Image Logic -->
+    <div class="post-image">
+        {{ $image := .Content | findRE "<img.*?src=[\"'](.+?)[\"'].*?> " 1 }}
+        {{ if $image }}
+            <img src="{{ index $image 0 }}" alt="{{ .Title }}" class="post-preview-image">
+        {{ else }}
+            <!-- Fallback Default Image -->
+            <img src="/path/to/default-image.jpg" alt="Default Preview Image" class="post-preview-image">
+        {{ end }}
+    </div>
+
     {{ if not .Site.Params.disableSummary }}
         <div class="content post-summary p-summary">
             {{ .Summary | safeHTML }}
@@ -34,11 +45,11 @@
             <a class="u-url" href="{{ .RelPermalink }}">{{ i18n "readMore" }}</a>
         </div>
     {{ end }}
-    
+
     {{ if .Store.Get "hasMermaid" }}
         {{ partial "mermaid_support.html" . }}
     {{ end }}
-    
+
     {{ if .Params.math }}
         {{ partial "mathjax_support.html" . }}
     {{ end }}
