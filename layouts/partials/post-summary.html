@@ -23,17 +23,6 @@
         {{ partial "post-language-switcher.html" . }}
     </div>
 
-    <!-- Add logic to include the first image from the article content -->
-    <div class="post-image">
-        {{ $firstImage := .Content | plainify | findRE "<img.*?src=[\"'](.+?)[\"'].*?>" 1 }}
-        {{ if $firstImage }}
-            <img src="{{ index $firstImage 0 }}" alt="{{ .Title }}" class="post-preview-image">
-        {{ else }}
-            <!-- Fallback default image -->
-            <img src="/path/to/default-image.jpg" alt="Default Preview Image" class="post-preview-image">
-        {{ end }}
-    </div>
-
     {{ if not .Site.Params.disableSummary }}
         <div class="content post-summary p-summary">
             {{ .Summary | safeHTML }}
