@@ -20,7 +20,7 @@
     <!-- Dynamic Preview Image Logic -->
     <div class="post-image">
         {{ with .Params.previewImage }}
-            <img src="{{ . }}" alt="{{ .Title }}" class="post-preview-image">
+            <img src="{{ . }}" alt="{{ .title }}" class="post-preview-image">
         {{ else }}
             <img src="/path/to/default-image.jpg" alt="Default Preview Image" class="post-preview-image">
         {{ end }}
