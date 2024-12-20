@@ -25,7 +25,7 @@
 
     <!-- Add logic to include the first image from the article content -->
     <div class="post-image">
-        {{ $firstImage := .Content | findRE "<img.*?src=[\"'](.+?)[\"'].*?>" 1 }}
+        {{ $firstImage := .Content | plainify | findRE "<img.*?src=[\"'](.+?)[\"'].*?>" 1 }}
         {{ if $firstImage }}
             <img src="{{ index $firstImage 0 }}" alt="{{ .Title }}" class="post-preview-image">
         {{ else }}
