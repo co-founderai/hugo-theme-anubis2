@@ -25,7 +25,8 @@
 
     <!-- Dynamic Preview Image Logic -->
     <div class="post-image">
-        {{ $image := .Content | findRE "<img.*?src=[\"'](.+?)[\"'].*?> " 1 }}
+        {{ $content := .Content | safeHTML }}
+        {{ $image := $content | plainify | findRE "<img.*?src=[\"'](.+?)[\"'].*?>" 1 }}
         {{ if $image }}
             <img src="{{ index $image 0 }}" alt="{{ .Title }}" class="post-preview-image">
         {{ else }}
